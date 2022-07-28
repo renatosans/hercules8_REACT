@@ -1,0 +1,29 @@
+[
+{
+    "id":5,
+    "pais":"Brasil",
+    "nome":"Fluminense",
+    "email":"flu@terra.com.br",
+    "telefone":"998579032",
+    "fax":null,
+    "imagem":null
+},
+{
+    "id":6,
+    "pais":"Brasil",
+    "nome":"Gremio",
+    "email":"gremio@hotmail.com",
+    "telefone":"39225077",
+    "fax":null,
+    "imagem":null
+},
+{
+    "id":7,
+    "pais":"Brasil",
+    "nome":"Cruzeiro",
+    "email":"cruzeiro@hotmail.com",
+    "telefone":"39884022",
+    "fax":null,
+    "imagem":null
+}
+]
