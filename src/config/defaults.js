@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 const setApiDefaults = axios.create({
-    baseURL: 'https://api-hercules8.vercel.app/api',
+    baseURL: 'https://hercules8-api.vercel.app/api',
     timeout: 1000,
     headers: { 'Content-Type': 'application/json' }
 })
