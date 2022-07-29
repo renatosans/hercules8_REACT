@@ -1,20 +1,18 @@
 import './App.css'
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 import ClubList from './componentes/ClubList';
-import { setApiDefaults } from './config/defaults';
+import { api, notification } from './config/defaults';
 
 
 export default function App() {
   const [clubes, setClubes] = useState([]);
 
   const getClubes = async () => {
-    const { data: clubes } = await axios.get('/api/clubes')
+    const { data: clubes } = await api.get('/clubes')
     setClubes(clubes)
   }
 
   useEffect(() => {
-    setApiDefaults();
     getClubes();
   }, []);
 
