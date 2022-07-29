@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 
-const setApiDefaults = axios.create({
+const api = axios.create({
     baseURL: 'https://hercules8-api.vercel.app/api',
     timeout: 1000,
     headers: { 'Content-Type': 'application/json' }
@@ -20,4 +20,4 @@ const notification = {
     }
 }
 
-export { setApiDefaults, notification }
+export { api, notification }
