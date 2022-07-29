@@ -1,4 +1,3 @@
-import axios from "axios";
 import ReactDom from 'react-dom';
 import React, { useState, useEffect } from 'react';
 // import { navigation } from '@react-navigation/web';
@@ -46,11 +45,11 @@ export default function ClubList({ clubs, navigation }) {
 		const root = ReactDom.createRoot(document.getElementById('panel'));
 
 		if (selectionModel.length < 1){
-            toast.error("Favor selecionar os produtos para exclusão.", notification.options);
+            toast.error("Favor selecionar os registros para exclusão.", notification.options);
             return;
 		}
 
-		const message = 'Deseja realmente excluir os produtos selecionados ?';
+		const message = 'Deseja realmente excluir estes registros ?';
         const confirmationDialog = React.createElement(ConfirmationDialog, {message, handleResult}, null);
 		root.render(confirmationDialog);
 	}
@@ -58,7 +57,7 @@ export default function ClubList({ clubs, navigation }) {
 	const handleResult = (result) => {
         // apos confirmação exlcui os registros
 		if (result) {
-			const promises = selectionModel.map(async (id) => { await axios.delete(`/clubes/${id}`) } );
+			const promises = selectionModel.map(async (id) => { await api.delete(`/clubes/${id}`) } );
 			Promise.all(promises)
 				.then(() => { navigation.navigate('/') } )
 				.catch((error) => { toast.error(error.message) })

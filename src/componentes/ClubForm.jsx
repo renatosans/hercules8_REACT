@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { api, notification } from '../config/defaults'
@@ -26,11 +25,11 @@ export default function ClubForm({dialogRef}) {
 
 		try {
 			if (!router.query.id) {
-				await axios.post("/api/clubes", {
+				await api.post("/clubes", {
 					...product,
 				});
 			} else {
-				await axios.put("/api/clubes/" + router.query.id, {
+				await api.put("/clubes/" + router.query.id, {
 					...product,
 				});
 			}
@@ -53,7 +52,7 @@ export default function ClubForm({dialogRef}) {
 
 	useEffect(() => {
 		const getClube = async (id) => {
-			const { data: clube } = await axios.get("/api/clubes/" + id);
+			const { data: clube } = await api.get("/clubes/" + id);
 			setClube(clube);
 		};
 

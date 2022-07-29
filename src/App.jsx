@@ -1,14 +1,15 @@
 import './App.css'
-import { useState, useEffect } from 'react';
-import ClubList from './componentes/ClubList';
-import { api, notification } from './config/defaults';
+import { useState, useEffect } from 'react'
+import ClubList from './componentes/ClubList'
+import { api, notification } from './config/defaults'
+import axios from 'axios'
 
 
 export default function App() {
   const [clubes, setClubes] = useState([]);
 
   const getClubes = async () => {
-    const { data: clubes } = await api.get('/clubes')
+    const { data: clubes } = await axios.get('./mock_data/clubes.json') //     api.get('/clubes')
     setClubes(clubes)
   }
 
