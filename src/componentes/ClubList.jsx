@@ -1,4 +1,3 @@
-import axios from 'axios';
 import ReactDom from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
@@ -20,11 +19,11 @@ export default function ClubList() {
 	  const { data: clubes } = await api.get('/clubes')  //  axios.get('./mock_data/clubes.json')
 	  setClubes(clubes)
 	}
-  
+
 	useEffect(() => {
 	  getClubes();
 	}, []);
-  
+
     const columns = [
 		{ field: 'id', headerName: 'id', width: 80 },
 		{ field: 'pais', headerName: 'País', width: 120 },
