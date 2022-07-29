@@ -1,24 +1,22 @@
 import './App.css'
+import axios from 'axios';
 import { useState, useEffect } from 'react';
 import ClubList from './componentes/ClubList';
+import { setApiDefaults } from './config/defaults';
 
 
 export default function App() {
   const [clubes, setClubes] = useState([]);
 
   const getClubes = async () => {
-    const response = await fetch('./mock_data/clubes.json')
-    .then((response) => response.json());
-
-    setClubes(response);
+    const { data: clubes } = await axios.get('./mock_data/clubes.json')       //    /api/clubes
+    setClubes(clubes)
   }
 
   useEffect(() => {
+    setApiDefaults();
     getClubes();
   }, []);
-
-  const [show, setShow] = useState(false);
-  const toggle = () => setShow(!show);
 
   return (
       <>
