@@ -7,13 +7,13 @@ import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import toast, { Toaster } from "react-hot-toast";
-import { setApiDefaults, notification } from '../config/defaults'
+import { api, notification } from '../config/defaults'
 import ClubForm from './ClubForm';
 import ClickableField from './ClickableField';
 import ConfirmationDialog from './ConfirmationDialog';
 
 
-export default function ClubList({ clubs }) {
+export default function ClubList({ clubs, navigation }) {
 
     const columns = [
 		{ field: 'id', headerName: 'id', width: 80 },
@@ -29,7 +29,7 @@ export default function ClubList({ clubs }) {
 	const [open, setOpen] = useState(false);
 
 	function insertClub() {
-		router.push('/')
+		navigation.navigate('/')
 		    .then(() => { setOpen(true) } )
 		    .catch((error) => { toast.error(error.message) } )
 	}
@@ -58,16 +58,12 @@ export default function ClubList({ clubs }) {
 	const handleResult = (result) => {
         // apos confirmação exlcui os registros
 		if (result) {
-			const promises = selectionModel.map(async (id) => { await axios.delete(`/api/clubes/${id}`) } );
+			const promises = selectionModel.map(async (id) => { await axios.delete(`/clubes/${id}`) } );
 			Promise.all(promises)
-				.then(() => { useNavigate('/') } )
+				.then(() => { navigation.navigate('/') } )
 				.catch((error) => { toast.error(error.message) })
 		}		
 	}
-
-	useEffect(() => {
-		setApiDefaults();
-	}, []);
 
 	return (
 		<>

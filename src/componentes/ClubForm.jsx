@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { setApiDefaults, notification } from '../config/defaults'
+import { api, notification } from '../config/defaults'
 
 
 export default function ClubForm({dialogRef}) {
@@ -60,8 +60,6 @@ export default function ClubForm({dialogRef}) {
 		if (router.query.id) {
 			getClube(router.query.id);
 		}
-
-		setApiDefaults();
 	}, []);
 
 	return (
