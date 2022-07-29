@@ -9,7 +9,7 @@ export default function App() {
   const [clubes, setClubes] = useState([]);
 
   const getClubes = async () => {
-    const { data: clubes } = await axios.get('./mock_data/clubes.json')       //    /api/clubes
+    const { data: clubes } = await axios.get('/api/clubes')
     setClubes(clubes)
   }
 
