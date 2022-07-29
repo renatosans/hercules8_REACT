@@ -1,8 +1,8 @@
+import axios from 'axios';
 import ReactDom from 'react-dom';
 import React, { useState, useEffect } from 'react';
-// import { navigation } from '@react-navigation/web';
+import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import { Button, Dialog } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import toast, { Toaster } from "react-hot-toast";
@@ -12,34 +12,36 @@ import ClickableField from './ClickableField';
 import ConfirmationDialog from './ConfirmationDialog';
 
 
-export default function ClubList({ clubs, navigation }) {
+export default function ClubList() {
 
+	const [clubes, setClubes] = useState([]);
+
+	const getClubes = async () => {
+	  const { data: clubes } = await axios.get('./mock_data/clubes.json') //     api.get('/clubes')
+	  setClubes(clubes)
+	}
+  
+	useEffect(() => {
+	  getClubes();
+	}, []);
+  
     const columns = [
 		{ field: 'id', headerName: 'id', width: 80 },
 		{ field: 'pais', headerName: 'País', width: 120 },
 		{ field: 'nome', headerName: 'Nome', width: 120, renderCell: (params) => 
-			<ClickableField route={`/clubes/?id=${params.row.id}`} label={params.row.nome} dialogRef={{ open, setOpen }}></ClickableField> },
+			<ClickableField rowId={params.row.id} label={params.row.nome} parentRef={{ getClubes }}></ClickableField> },
 		{ field: 'email', headerName: 'E-mail', width: 120 },
 		{ field: 'telefone', headerName: 'Telefone', width: 80 },
 		{ field: 'fax', headerName: 'Fax', width: 80 },
 		{ field: 'imagem', headerName: 'Imagem', width: 80 }
 	]
 
-	const [open, setOpen] = useState(false);
-
 	function insertClub() {
-		navigation.navigate('/')
-		    .then(() => { setOpen(true) } )
-		    .catch((error) => { toast.error(error.message) } )
+        const root = ReactDom.createRoot(document.getElementById('panel'));
+
+        const clubForm = React.createElement(ClubForm, {id: undefined, parentRef: { getClubes } }, null);
+		root.render(clubForm);
 	}
-
-    const toggle = () => {
-		// limpa a seleção e muda o estado do dialogo
-		setSelectionModel([]);
-        setOpen(current => !current);
-    }
-
-	const [selectionModel, setSelectionModel] = useState([]);
 
 	function deleteClub() {
 		const root = ReactDom.createRoot(document.getElementById('panel'));
@@ -59,23 +61,21 @@ export default function ClubList({ clubs, navigation }) {
 		if (result) {
 			const promises = selectionModel.map(async (id) => { await api.delete(`/clubes/${id}`) } );
 			Promise.all(promises)
-				.then(() => { navigation.navigate('/') } )
+				.then(() => { getClubes() } )  // Refresh da lista de clubes
 				.catch((error) => { toast.error(error.message) })
 		}		
 	}
+
+	const [selectionModel, setSelectionModel] = useState([]);
 
 	return (
 		<>
             <Toaster />
 
-            <Dialog open={open} onClose={toggle} >
-                <ClubForm dialogRef={{ toggle }} />
-			</Dialog>
-
 			<Button variant="outlined" startIcon={<DeleteIcon />} onClick={deleteClub} >Excluir</Button>
 			<Button variant="outlined" startIcon={<AddCircleIcon />} onClick={insertClub} >Novo</Button>
 
-			<DataGrid columns={columns} rows={clubs} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection
+			<DataGrid columns={columns} rows={clubes} pageSize={5} rowsPerPageOptions={[5]} checkboxSelection
                 onSelectionModelChange={setSelectionModel} selectionModel={selectionModel} />
 		</>
 	)

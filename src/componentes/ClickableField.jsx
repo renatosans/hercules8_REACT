@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import React from 'react'
+import ReactDom from 'react-dom'
+import ClubForm from './ClubForm'
 
 
-export default function ClickableField({ route, label, dialogRef }) {
-	// const router = useRouter();
+export default function ClickableField({ rowId, label, parentRef }) {
 
 	const handleClick = () => {
-		router.push(route, undefined, { shallow: true })
-		    .then(() => { dialogRef.setOpen(true) } )
-			.catch((error) => { throw new Error('Erro ao definir rota' + error.message) } );
+        const root = ReactDom.createRoot(document.getElementById('panel'));
+
+        const clubForm = React.createElement(ClubForm, { rowId, parentRef }, null);
+		root.render(clubForm);
 	}
 
 	return (
