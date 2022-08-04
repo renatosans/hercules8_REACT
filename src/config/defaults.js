@@ -2,8 +2,8 @@ import axios from 'axios'
 
 
 const api = axios.create({
-    baseURL: 'https://hercules8-rest-api.vercel.app/api',
-    timeout: 1000,
+    baseURL: 'https://hercules8-backend.vercel.app/api',
+    timeout: 4500,
     headers: { 'Content-Type': 'application/json' }
 })
 

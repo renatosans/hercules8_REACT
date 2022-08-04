@@ -8,7 +8,7 @@ export default function ClickableField({ rowId, label, parentRef }) {
 	const handleClick = () => {
         const root = ReactDom.createRoot(document.getElementById('panel'));
 
-        const clubForm = React.createElement(ClubForm, { rowId, parentRef }, null);
+        const clubForm = React.createElement(ClubForm, { id: rowId, parentRef: parentRef }, null);
 		root.render(clubForm);
 	}
 
