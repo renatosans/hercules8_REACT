@@ -16,7 +16,7 @@ export default function ClubList() {
 	const [clubes, setClubes] = useState([]);
 
 	const getClubes = async () => {
-	  const { data: clubes } = await axios.get('/api/clubes')
+	  const { data: clubes } = await api.get('/api/clubes')
 	  setClubes(clubes)
 	}
 
@@ -58,7 +58,7 @@ export default function ClubList() {
 	const handleResult = (result) => {
         // apos confirmação exlcui os registros
 		if (result) {
-			const promises = selectionModel.map(async (id) => { await axios.delete(`/api/clubes/${id}`) } );
+			const promises = selectionModel.map(async (id) => { await api.delete(`/api/clubes/${id}`) } );
 			Promise.all(promises)
 				.then(() => { getClubes() } )  // Refresh da lista de clubes
 				.catch((error) => { toast.error(error.message) })
