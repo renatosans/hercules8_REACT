@@ -1,3 +1,4 @@
+import axios from 'axios'
 import ReactDom from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
@@ -5,7 +6,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import toast, { Toaster } from "react-hot-toast";
-import { api, notification } from '../config/defaults'
+import { notification } from '../config/defaults'
 import ClubForm from './ClubForm';
 import ClickableField from './ClickableField';
 import ConfirmationDialog from './ConfirmationDialog';
@@ -16,7 +17,7 @@ export default function ClubList() {
 	const [clubes, setClubes] = useState([]);
 
 	const getClubes = async () => {
-	  const { data: clubes } = await api.get('/clubes')  //  axios.get('./mock_data/clubes.json')
+	  const { data: clubes } = await axios.get('/api/clubes')
 	  setClubes(clubes)
 	}
 
@@ -58,7 +59,7 @@ export default function ClubList() {
 	const handleResult = (result) => {
         // apos confirmação exlcui os registros
 		if (result) {
-			const promises = selectionModel.map(async (id) => { await api.delete(`/clubes/${id}`) } );
+			const promises = selectionModel.map(async (id) => { await axios.delete(`/api/clubes/${id}`) } );
 			Promise.all(promises)
 				.then(() => { getClubes() } )  // Refresh da lista de clubes
 				.catch((error) => { toast.error(error.message) })

@@ -1,7 +1,8 @@
+import axios from 'axios'
 import { Dialog } from '@mui/material'
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { api, notification } from '../config/defaults'
+import { notification } from '../config/defaults'
 
 
 export default function ClubForm({id, parentRef}) {
@@ -30,11 +31,11 @@ export default function ClubForm({id, parentRef}) {
 
 		try {
 			if (id === undefined) {
-				await api.post("/clubes", {
+				await axios.post("/api/clubes", {
 					...clube,
 				})
 			} else {
-				await api.put("/clubes/" + id, {
+				await axios.put("/api/clubes/" + id, {
 					...clube,
 				})
 			}
@@ -57,7 +58,7 @@ export default function ClubForm({id, parentRef}) {
 
 	useEffect(() => {
 		const getClube = async (id) => {
-			const { data: clube } = await api.get("/clubes/" + id);
+			const { data: clube } = await axios.get("/api/clubes/" + id);
 			setClube(clube);
 		};
 
