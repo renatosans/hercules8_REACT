@@ -1,8 +1,7 @@
-import axios from 'axios'
 import { Dialog } from '@mui/material'
 import { useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { notification } from '../config/defaults'
+import { api, notification } from '../config/defaults'
 
 
 export default function ClubForm({id, parentRef}) {

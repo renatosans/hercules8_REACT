@@ -1,4 +1,3 @@
-import axios from 'axios'
 import ReactDom from 'react-dom';
 import React, { useState, useEffect } from 'react';
 import { Button } from '@mui/material';
@@ -6,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import toast, { Toaster } from "react-hot-toast";
-import { notification } from '../config/defaults'
+import { api, notification } from '../config/defaults'
 import ClubForm from './ClubForm';
 import ClickableField from './ClickableField';
 import ConfirmationDialog from './ConfirmationDialog';
